@@ -1,0 +1,98 @@
+<view class="container">
+    <view wx:if="{{ showTaskSchedule }}" class="task-schedule">
+        <view class="circle-box">
+            <view class="line"></view>
+            <view class="circle {{ 'active' }}"><view class="circle-gray"></view></view>
+            <view class="circle {{ res.publishStatus !== '02' && res.publishStatus !== '03' ? 'active' : '' }}"><view class="circle-gray"></view></view>
+            <view class="circle {{ res.publishStatus === '07' || res.publishStatus === '05' ? 'active' : 0 }}"><view class="circle-gray"></view></view>
+            <view class="circle {{ res.publishStatus === '07' ? 'active' : '' }}"><view class="circle-gray"></view></view>
+        </view>
+        <view class="status-text-box">
+            <view class="schedule-text">待处理</view>
+            <view class="schedule-text">待审核</view>
+            <view class="schedule-text">审核完成</view>
+            <view class="schedule-text">红包到账</view>
+        </view>
+        <view class="status-text-box">
+            <view class="schedule-time-text">{{ res.handleGrabTime || '' }}</view>
+            <view class="schedule-time-text">{{ res.handleTime || '' }}</view>
+            <view class="schedule-time-text">{{ res.reviewTime || '' }}</view>
+            <view class="schedule-time-text">{{ res.bounsTime || '' }}</view>
+        </view>
+    </view>
+
+
+    <view class="task-item">
+        <view class="task-item-top">
+            <view class="task-info">
+                <text class="heading">具体工作内容</text>
+                <text class="task-title">{{ res.taskTitle }}</text>
+                <text class="task-location">{{ res.provinceName + res.cityName + res.countyName + res.address }}</text>
+                <text class="task-location">{{ res.taskContent }}</text>
+                <view class="task-distance" catchtap="openMap">
+                    <image class='position-icon' src="../../images/positioning.png"></image>
+                    <text class="task-distance-num">{{ res.distance + 'km' }}</text>
+                </view>
+                <text class="task-time">{{ res.distDate }}</text>
+            </view>
+
+        </view>
+        <view class="task-item-bottom">
+            <block>
+                <view class="money-views">
+                    <view class="money-view" wx:for="{{ res.bounsTimeArr }}" wx:for-item="xItem" style="width:{{ 100/res.bounsTimeArr.length }}%;" wx:key="*this">
+                        <text class="money">{{ xItem.bouns }}</text>
+                        <text class="money-unit">元</text>
+                    </view>
+                </view>
+                <view class="gradient">
+                    <view class="gradient-color" style="width: {{ res.progressThan * 100 }}%;"></view>
+                    <view class="gradient-gray"></view>
+                    <view class="dot" style="left: {{ res.progressThan * 100 }}%"></view>
+                    <view class="vertical-line" style="left: {{ 100 / res.bounsTimeArr.length }}%"></view>
+                    <view wx:if="{{ res.bounsTimeArr.length === 3 }}" class="vertical-line" style="left: {{ 100 / 3 * 2 }}%"></view>
+                </view>
+                <view class="closing-dates">
+                    <text class='end-time' wx:for="{{ res.bounsTimeArr }}" wx:for-item="xItem" style="width:{{ 100/res.bounsTimeArr.length }}%;" wx:key="*this">{{ xItem.time }}</text>
+                </view>
+            </block>
+            <block wx:if="{{ res.publishStatus === '07' }}">
+                <view class="completed-bottom">
+                    <text class="completed-text">已获得</text>
+                    <text class="completed-num">{{ res.bounsFinal }}</text>
+                    <text class="completed-text">元</text>
+                </view>
+            </block>
+        </view>
+    </view>
+
+    <view wx:if="{{ showTaskSchedule && res.publishStatus !== '01' }}" class="task-description">
+        <view class="heading">工作描述</view>
+        <textarea wx:if="{{ res.publishStatus === '02' || res.publishStatus === '03' }}" auto-focus="true" focus="true" bindinput="getTaskDescription" placeholder-class="placeholder-class" placeholder="{{ res.handleContent ? '' : '请描述具体工作情况' }}" value="{{ res.handleContent }}"></textarea>
+        <view wx:else="{{ status == 0 }}" class='.textarea'>{{ res.handleContent || '' }}</view>
+    </view>
+
+    <view wx:if="{{ showTaskSchedule && res.publishStatus !== '01' }}" class="task-photo">
+        <view class="heading">
+            <text>工作完成情况</text>
+            <image wx:if="{{ (imgUrls.length < 9) && (res.publishStatus === '02' || res.publishStatus === '03') }}" bindtap="chooseImg" src="../../images/camera.png"></image>
+        </view>
+        <view wx:if="{{ imgUrls.length }}" class="photos">
+            <view class="photo" wx:if="{{ index < 9 }}" wx:for="{{ imgUrls }}">
+                <image mode="scaleToFill" src="{{ item }}"></image>
+                <view wx:if="{{ res.publishStatus === '02' || res.publishStatus === '03' }}" bindtap="delImg" data-index="{{ index }}" class="xx">X</view>
+            </view>
+        </view>
+    </view>
+
+    <view wx:if="{{ res.publishStatus === '02' || res.publishStatus === '03' }}" class="btns">
+        <button class="btn-save" data-id="{{ res.id }}" catchtap="save">保存</button>
+        <button class="btn-submit" data-id="{{ res.id }}" catchtap="submit">提交</button>
+    </view>
+
+
+    <view wx:if="{{ res.publishStatus === '01' }}" data-id="{{ res.id }}" catchtap="grabSingle" class='task-status'>
+        <text class="status-text">抢单</text>
+    </view>
+
+</view>

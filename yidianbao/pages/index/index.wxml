@@ -1,0 +1,88 @@
+<!--index.wxml-->
+<view class="container">
+    <view class="current-user-statistics">
+        <view class="statistics-item">
+            <view class="statistics-tit">
+                <image class="statistics-icon" src="../../images/oddNumber.png" mode="aspectFill"></image>
+                <text class="statistics-title">出单数(单)</text>
+            </view>
+            <text class="statistics-num">{{ cds || 0 }}</text>
+        </view>
+        <view class="statistics-item">
+            <view class="statistics-tit">
+                <image class="statistics-icon" src="../../images/redEnvelope.png"></image>
+                <text class="statistics-title">红包(元)</text>
+            </view>
+            <text class="statistics-num">{{ hb || 0 }}</text>
+        </view>
+        <view class="statistics-item" style="border: none;">
+            <view class="statistics-tit">
+                <image class="statistics-icon" src="../../images/giftBox.png"></image>
+                <text class="statistics-title">积分(分)</text>
+            </view>
+            <text class="statistics-num">{{ jf || 0 }}</text>
+        </view>
+    </view>
+
+    <view class="task-list">
+        <navigator url="../details/details?id={{ item.id }}" wx:for="{{ list }}" wx:key="*this" class="task-item" style="flex-basis: {{ item.publishStatus === '07' ? 364 : 304 }}rpx;">
+            <view class="task-item-top">
+                <view class="task-info">
+                    <text class="task-title">{{ item.taskTitle }}</text>
+                    <text class="task-location">{{ item.provinceName + item.cityName + item.countyName + item.address }}</text>
+                    <view class="task-distance">
+                        <image class='position-icon' src="../../images/positioning.png" catchtap="openMap"></image>
+                        <text wx:if="{{ item.distance !== 'NaN' }}" class="task-distance-num" data-latitude="{{ item.latitude }}" data-longitude="{{ item.longitude }}" catchtap="openMap">{{ item.distance + 'km' }}</text>
+						<text class="task-time">{{ item.distDate }}</text>
+                    </view>
+                </view>
+                 <view wx:if="{{ item.publishStatus === '01' }}" data-id="{{ item.id }}" hover-stop-propagation="true" catchtap="grabSingle" class='task-status' style="background: linear-gradient(to bottom right, #ff9907 , #ffc572);"> 
+                     <text class="status-text">抢单</text>
+                 </view> 
+				 <view wx:elif="{{ item.publishStatus === '07' }}" class='task-status' style="background: #828583;"> 
+                     <text class="status-text">已完成</text>
+                 </view> 
+				 <view wx:else class='task-status' style="background: linear-gradient(to bottom right, #18bcff , #74d6fe);"> 
+                     <text class="status-text">处理中</text>
+                 </view> 
+            </view>
+            <view class="task-item-bottom">
+                <block>
+                    <view class="money-views">
+                        <view class="money-view" wx:for="{{ item.bounsTimeArr }}"  wx:for-item="xItem" style="width:{{ 100/item.bounsTimeArr.length }}%;" wx:key="*this">
+                            <text class="money">{{ xItem.bouns }}</text>
+                            <text class="money-unit">元</text>
+                        </view>
+                    </view>
+                    <view class="gradient">
+                        <view class="gradient-color" style="width: {{ item.progressThan * 100 }}%;"></view>
+                        <view class="gradient-gray"></view>
+                        <view class="dot" style="left: {{ item.progressThan * 100 }}%"></view>
+                        <view class="vertical-line" style="left: {{ 100 / item.bounsTimeArr.length }}%"></view>
+                        <view wx:if="{{ item.bounsTimeArr.length === 3 }}" class="vertical-line" style="left: {{ 100 / 3 * 2 }}%"></view>
+                    </view>
+                    <view class="closing-dates">
+                        <text class='end-time' wx:for="{{ item.bounsTimeArr }}"  wx:for-item="xItem" style="width:{{ 100/item.bounsTimeArr.length }}%;" wx:key="*this">{{ xItem.time }}</text>
+                    </view>
+                </block>
+                <block wx:if="{{ item.publishStatus === '07' }}">
+                    <view class="completed-bottom">
+                        <text class="completed-text">已获得</text>
+                        <text class="completed-num">{{ item.bounsFinal || 0 }}</text>
+                        <text class="completed-text">元</text>
+                    </view>
+                </block>
+            </view>
+        </navigator>
+    </view>
+
+	<navigator wx:if="{{ !isRegister }}" url="../register/register" class="to-register" hover-class="none">
+		<image src="../../images/shit1.png"></image>
+		<text>立即注册，抢单赚红包！</text>
+	</navigator>
+
+	<view wx:if="{{ isRegister && list.length === 0 }}" class="to-register" hover-class="none">
+		<image src="../../images/shit2.png"></image>
+		<text>你还没有接到过任务</text>
+	</view>
+</view>

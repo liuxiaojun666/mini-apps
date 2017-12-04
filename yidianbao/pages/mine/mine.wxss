@@ -1,0 +1,57 @@
+page {
+    background-color: #fff;
+}
+.header {
+    margin-top: 150rpx;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.avatar {
+     width: 180rpx; 
+     height: 180rpx; 
+     background-color: #eeeeee;
+     border-radius: 50%;
+}
+
+.jiaoshaya {
+    padding-top: 25rpx;
+    /* width: 240rpx; */
+    white-space: nowrap;
+    overflow: visible;
+}
+
+.user-line {
+    margin-top: 35rpx;
+    font-size: 28rpx;
+    color: #575757;
+    
+
+    display: flex;
+	justify-content: center;
+}
+
+.user-line .mine-icon {
+    flex-basis: 32rpx;
+    flex-shrink: 0;
+    height: 32rpx;
+    margin-right: 10rpx;
+}
+.user-line text {
+    height: 32rpx;
+    line-height: 32rpx;
+	text-align: center;
+}
+
+.disclaimer {
+	position: fixed;
+	width: 100%;
+	bottom: 10rpx;
+	font-size: 20rpx;
+	text-align: center;
+	color: #575757;
+}

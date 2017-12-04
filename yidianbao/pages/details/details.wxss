@@ -1,0 +1,373 @@
+.container {
+    height: 100%;
+}
+
+/*任务进度  */
+
+.task-schedule {
+    margin-top: 6rpx;
+    width: 100%;
+    flex-basis: 150rpx;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.circle-box {
+    margin-top: 16rpx;
+    width: 565rpx;
+    flex-basis: 34rpx;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.circle-box .line {
+    width: 100%;
+	box-sizing: border-box;
+	border-left: 17rpx solid #fff;
+	border-right: 17rpx solid #fff;
+    height: 2rpx;
+    background-color: #a7a7a7;
+    position: absolute;
+    top: 16rpx;
+    left: 0;
+}
+
+.circle-box .circle {
+    flex-basis: 34rpx;
+    height: 34rpx;
+    background-color: transparent;
+    border-radius: 50%;
+    position: relative;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.circle-box .circle.active {
+	background-color: #24bfff;
+}
+.circle-box .circle .circle-gray {
+	background-color: #a7a7a7;
+	border-radius: 50%;
+	flex-basis: 20rpx;
+    height: 20rpx;
+}
+
+.circle-box .circle.active .circle-gray {
+	background-color: transparent;
+}
+
+.status-text-box {
+    margin-top: 13rpx;
+    width: 708rpx;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.status-text-box .schedule-text {
+    flex-basis: 25%;
+    flex-grow: 0;
+    white-space: nowrap;
+    text-align: center;
+    color: #585858;
+    font-size: 24rpx;
+}
+
+.status-text-box .schedule-time-text {
+    flex-basis: 25%;
+    flex-grow: 0;
+    white-space: nowrap;
+    text-align: center;
+    color: #969696;
+    font-size: 20rpx;
+}
+
+/*工作描述  */
+
+.task-description {
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 20rpx;
+    background-color: #fff;
+    padding: 30rpx;
+}
+
+.task-description .heading {
+	font-size: 36rpx;
+    width: 100%;
+    border-bottom: 1rpx solid #ebebeb;
+    padding-bottom: 10rpx;
+}
+
+.task-description textarea, .task-description .textarea {
+    padding-top: 10rpx;
+    width: 100%;
+    height: 180rpx;
+    box-sizing: border-box;
+    font-size: 36rpx;
+}
+
+/*工作完成情况  照片上传  */
+
+.task-photo {
+    box-sizing: border-box;
+    padding: 0 30rpx;
+    width: 100%;
+    background-color: #fff;
+    margin-top: 20rpx;
+}
+
+.task-photo .heading {
+    width: 100%;
+    height: 100rpx;
+    line-height: 100rpx;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-photo .heading text {
+    font-size: 36rpx;
+}
+
+.task-photo .heading image {
+    width: 48rpx;
+    height: 38rpx;
+}
+
+.task-photo .photos {
+    border-top: 1rpx solid #ebebeb;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding: 20rpx 0;
+}
+
+.task-photo .photo {
+    margin: 10rpx 15rpx;
+    width: 200rpx;
+    height: 200rpx;
+    background-color: #eee;
+    position: relative;
+}
+
+.task-photo .photo image {
+    width: 100%;
+    height: 100%;
+}
+
+.task-photo .photo .xx {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 30rpx;
+    height: 30rpx;
+    font-size: 30rpx;
+    border-radius: 50%;
+    text-align: center;
+    background-color: #ff9a0a;
+    color: #fff;
+}
+
+/*按钮  */
+
+.btns {
+    width: 100%;
+    padding: 30rpx 0;
+    margin-top: 20rpx;
+    display: flex;
+    justify-content: space-around;
+}
+
+.btns button {
+    width: 210rpx;
+    height: 100rpx;
+    border-radius: 10rpx;
+    font-size: 40rpx;
+    color: #fff;
+}
+
+.btns .btn-save {
+    background: linear-gradient(to right, #18bcff , #74d6fe);
+}
+
+.btns .btn-submit {
+    background: linear-gradient(to right, #ff9600, #f6b559);
+}
+
+/* 任务详情 */
+
+.task-item {
+    box-sizing: border-box;
+    width: 100%;
+    background: #fff;
+    margin-top: 17rpx;
+    padding: 30rpx 30rpx 40rpx;
+    display: flex;
+    flex-direction: column;
+}
+
+.task-item-top {
+    flex-shrink: 0;
+    display: flex;
+}
+
+.task-info {
+    flex-grow: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.task-info .heading {
+    font-size: 36rpx;
+    border-bottom: 1rpx solid #ebebeb;
+    padding-bottom: 15rpx;
+}
+
+.task-title {
+	margin-top: 18rpx;
+    font-size: 36rpx;
+    color: #ff9906;
+    text-align: justify;
+    line-height: 1.5;
+}
+
+.task-location {
+    font-size: 28rpx;
+    text-align: justify;
+    line-height: 1.5;
+	margin-bottom: 20rpx;
+}
+
+.position-icon {
+    width: 28rpx;
+    height: 28rpx;
+}
+
+.task-distance {
+    width: 200rpx;
+    font-size: 24rpx;
+    color: #42bef1;
+    margin-top: 15rpx;
+}
+
+.task-time {
+    font-size: 28rpx;
+    color: #797979;
+    margin-top: 15rpx;
+}
+
+.task-status {
+    margin-top: 133rpx;
+    flex-basis: 178rpx;
+    width: 178rpx;
+    flex-shrink: 0;
+    border-radius: 50%;
+    font-size: 36rpx;
+    color: #fff;
+    background: linear-gradient(to bottom right, #ff9907, #ffc572);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.status-text {
+    position: relative;
+}
+
+.task-item-bottom {
+    display: flex;
+    flex-direction: column;
+}
+
+.money-views {
+    width: 100%;
+    display: flex;
+}
+
+.money-view {
+    flex-grow: 1;
+    text-align: right;
+    padding: 10rpx 0;
+    margin-right: 8rpx;
+}
+
+.money {
+    color: #b2b2b2;
+    font-size: 36rpx;
+}
+
+.money-unit {
+    color: #b2b2b2;
+    font-size: 18rpx;
+}
+
+.gradient {
+    flex-basis: 12rpx;
+    background: linear-gradient(to right, #ff3413, #ff9906, #ffe051) 0 0 no-repeat;
+    position: relative;
+    display: flex;
+}
+
+.gradient-color {
+    height: 12rpx;
+    flex-shrink: 0;
+}
+
+.gradient-gray {
+    height: 12rpx;
+    background-color: #a0a0a0;
+    flex-grow: 1;
+}
+
+.dot {
+    position: absolute;
+    background-color: #ff3413;
+    top: -5.5rpx;
+    margin-left: -11.5rpx;
+    width: 23rpx;
+    height: 23rpx;
+    border-radius: 50%;
+    z-index: 10;
+}
+
+.vertical-line {
+    width: 2rpx;
+    height: 100%;
+    background-color: #fff;
+    position: absolute;
+    top: 0;
+}
+
+.closing-dates {
+    display: flex;
+}
+
+.end-time {
+    flex-grow: 1;
+    font-size: 20rpx;
+    margin-top: 6rpx;
+    color: #757575;
+    text-align: right;
+    margin-right: 8rpx;
+}
+
+.completed-bottom {
+    padding-top: 16rpx;
+}
+
+.completed-text {
+    font-size: 30rpx;
+}
+
+.completed-num {
+    font-size: 46rpx;
+    color: #ff5216;
+}

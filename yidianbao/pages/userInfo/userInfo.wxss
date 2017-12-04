@@ -1,0 +1,122 @@
+page {
+    background-color: #fff;
+}
+
+.title {
+    margin-top: 40rpx;
+    font-size: 40rpx;
+    color: #ff9600;
+}
+
+.register-form {
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 70rpx;
+    padding: 0 30rpx;
+
+    display: flex;
+    flex-direction: column;
+}
+.register-form .block-bg {
+    border-radius: 10rpx;
+    background-color: #e5e5e5;
+    display: flex;flex-grow: 1;
+}
+.register-form .view-block {
+    width: 100%;
+    height: 100rpx;
+    line-height: 100rpx;
+    margin-bottom: 30rpx;
+
+    display: flex;
+}
+.register-form .view-block text {
+    width: 190rpx;
+    padding-left: 30rpx;
+    flex-shrink: 0;
+    font-size: 30rpx;
+}
+.register-form .view-block input {
+    height: 100rpx;
+    font-size: 30rpx;
+    flex-grow: 1;
+}
+.register-form .view-block button {
+    flex-basis: 210rpx;
+    background-color: #a5a5a5;
+    border-radius: 10rpx;
+    color: #fff;
+    line-height: 100rpx;
+    font-size: 30rpx;
+    margin-left: 30rpx;
+    flex-shrink: 0;
+}
+
+.upload-certificate {
+    width: 100%;
+    background-color: #e5e5e5;
+    border-radius: 10rpx;
+    box-sizing: border-box;
+    padding: 30rpx;
+}
+
+.upload-certificate .title-line {
+    display: flex;
+    justify-content: space-between;
+}
+.upload-certificate .title-line text {
+    font-size: 30rpx;
+    color: #141414;
+}
+.upload-certificate .title-line image {
+    width: 48rpx;
+    height: 38rpx;
+}
+.upload-certificate .photo {
+    margin-top: 10rpx;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.upload-certificate .photo .image-box {
+    position: relative;
+    margin-top: 20rpx;
+}
+.upload-certificate .photo .image-box .xx {
+    position: absolute;
+    right: 5rpx;
+    top: 5rpx;
+    width: 30rpx;
+    height: 30rpx;
+    border-radius: 50%;
+    font-size: 30rpx;
+    line-height: 30rpx;
+    text-align: center;
+    background-color: #ff9a0a;
+    color: #fff;
+}
+.upload-certificate .photo image {
+    width: 290rpx;
+    height: 170rpx;
+    border: 1px solid #333;
+}
+.register-form .star {
+    font-size: 22rpx;
+    color: #ff391f;
+}
+.register-form .upload-prompt {
+    font-size: 22rpx;
+    color: #141414;
+}
+
+
+.register-btn {
+    margin-top: 115rpx;
+    background: linear-gradient(to right, #ff9600, #f6b559);
+    color: #fff!important;
+    width: 100%;
+    height: 100rpx;
+    border-radius: 10rpx;
+    line-height: 100rpx;
+    font-size: 30rpx;
+}

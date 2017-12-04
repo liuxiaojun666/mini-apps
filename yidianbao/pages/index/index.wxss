@@ -1,0 +1,257 @@
+/* 累计接单情况  统计  */
+
+.current-user-statistics {
+    background: #fff;
+    box-sizing: border-box;
+    width: 100%;
+    flex-basis: 166rpx;
+    margin-top: 6rpx;
+    display: flex;
+    padding: 22rpx 0;
+    justify-content: space-around;
+}
+
+.statistics-item {
+    flex-basis: calc(100% / 3);
+    border-right: 2rpx solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.statistics-tit {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.statistics-icon {
+    width: 44rpx;
+    height: 44rpx;
+}
+
+.statistics-title {
+    font-size: 22rpx;
+    margin-top: 8rpx;
+}
+
+.statistics-num {
+    font-size: 36rpx;
+    color: #ff9906;
+}
+
+/* 任务列表  */
+
+.task-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.task-item {
+    box-sizing: border-box;
+    width: 100%;
+    flex-basis: 304rpx;
+    background: #fff;
+    margin-top: 17rpx;
+    padding: 20rpx 30rpx 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.task-item-top {
+    flex-basis: 178rpx;
+    flex-shrink: 0;
+    display: flex;
+}
+
+.task-info {
+    flex-grow: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.task-title {
+    flex-basis: 1em;
+    font-size: 36rpx;
+    color: #3f3f3f;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.task-location {
+    flex-basis: 1em;
+    font-size: 28rpx;
+    margin-top: 15rpx;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+	color: #686868;
+}
+
+.position-icon {
+    width: 28rpx;
+    height: 28rpx;
+}
+
+.task-distance {
+     width: 100%; 
+	flex-basis: 100rpx;
+    font-size: 24rpx;
+    color: #42bef1;
+	align-items: center;
+
+	display: flex;
+}
+.task-distance-num {
+	min-width: 110rpx;
+	padding: 30rpx 15rpx;
+}
+
+.task-time {
+    font-size: 28rpx;
+    color: #9e9e9e;
+	border-left: 1rpx solid #d1d1d1;
+	padding-left: 15rpx;
+	flex-grow: 1;
+	flex-shrink: 1;
+}
+
+.task-status {
+    flex-basis: 178rpx;
+    flex-shrink: 0;
+    border-radius: 50%;
+    font-size: 36rpx;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    /* box-shadow: 5px 5px 5px #757575; */
+}
+
+.status-img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.status-text {
+    position: relative;
+}
+
+.task-item-bottom {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.money-views {
+    width: 100%;
+    display: flex;
+}
+
+.money-view {
+    flex-grow: 1;
+    text-align: right;
+    padding: 10rpx 0;
+    margin-right: 8rpx;
+}
+
+.money {
+    color: #b2b2b2;
+    font-size: 36rpx;
+}
+
+.money-unit {
+    color: #b2b2b2;
+    font-size: 18rpx;
+}
+
+.gradient {
+    flex-basis: 12rpx;
+    background: linear-gradient(to right, #ff3413, #ff9906, #ffe051) 0 0 no-repeat;
+    border-right: 2rpx solid #fff;
+    position: relative;
+    display: flex;
+}
+
+.gradient-color {
+    height: 12rpx;
+    flex-shrink: 0;
+}
+
+.gradient-gray {
+    height: 12rpx;
+    background-color: #a0a0a0;
+    flex-grow: 1;
+}
+
+.dot {
+    position: absolute;
+    background-color: #ff3413;
+    top: -5.5rpx;
+    margin-left: -11.5rpx;
+    width: 23rpx;
+    height: 23rpx;
+    border-radius: 50%;
+    z-index: 10;
+}
+
+.vertical-line {
+    width: 2rpx;
+    height: 100%;
+    background-color: #fff;
+    position: absolute;
+    top: 0;
+}
+
+.closing-dates {
+    display: flex;
+}
+
+.end-time {
+    flex-grow: 1;
+    font-size: 20rpx;
+    margin-top: 6rpx;
+    color: #757575;
+    text-align: right;
+    margin-right: 8rpx;
+}
+
+.completed-bottom {
+    padding-top: 16rpx;
+}
+
+.completed-text {
+    font-size: 30rpx;
+}
+
+.completed-num {
+    font-size: 46rpx;
+    color: #ff5216;
+}
+
+/*引导注册  */
+.to-register {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+.to-register image {
+	margin: 100rpx 0 50rpx;
+	width: 330rpx;
+	height: 220rpx;
+}
+.to-register text {
+	font-size: 30rpx;
+	text-align: center;
+	color: #978e80;
+}

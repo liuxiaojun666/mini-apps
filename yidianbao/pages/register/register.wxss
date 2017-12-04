@@ -1,0 +1,87 @@
+page {
+    background-color: #fff;
+}
+
+.title {
+    margin-top: 40rpx;
+    font-size: 40rpx;
+    color: #ff9600;
+}
+
+.register-form {
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 70rpx;
+    padding: 0 30rpx;
+
+    display: flex;
+    flex-direction: column;
+}
+.register-form .block-bg {
+    border-radius: 10rpx;
+    background-color: #e5e5e5;
+    display: flex;flex-grow: 1;
+}
+.register-form .view-block {
+    width: 100%;
+    height: 100rpx;
+    line-height: 100rpx;
+    margin-bottom: 30rpx;
+
+    display: flex;
+}
+.register-form .view-block text {
+    width: 190rpx;
+    padding-left: 30rpx;
+    flex-shrink: 0;
+    font-size: 30rpx;
+}
+.register-form .view-block input {
+    height: 100rpx;
+    font-size: 30rpx;
+    flex-grow: 1;
+}
+.register-form .view-block button {
+    flex-basis: 210rpx;
+    background-color: #a5a5a5;
+    border-radius: 10rpx;
+    color: #fff;
+    line-height: 100rpx;
+    font-size: 30rpx;
+    margin-left: 30rpx;
+    flex-shrink: 0;
+}
+.register-form .view-block button.active {
+    background-color: #ff9600
+}
+.register-btn {
+    margin-top: 115rpx;
+    background-color: #a5a5a5!important;
+    color: #fff!important;
+    width: 100%;
+    height: 100rpx;
+    border-radius: 10rpx;
+    line-height: 100rpx;
+    font-size: 30rpx;
+}
+.register-btn.active {
+    background: linear-gradient(to right, #ff9600, #f6b559);
+}
+
+.get-location {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+}
+.get-location text {
+	margin-top: 1em;
+}
+.get-location text:nth-child(1) {
+	font-size: 30rpx;
+	color: #ff9600;
+}
+.get-location text:nth-child(2) {
+	font-size: 36rpx;
+	color: #ff3e3e;
+}

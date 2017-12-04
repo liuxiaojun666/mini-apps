@@ -1,0 +1,17 @@
+.container {
+	padding: 20rpx;
+
+}
+text {
+	width: 100%;
+	font-size: 28rpx;
+	text-align: justify;
+	line-height: 1.5em;
+}
+.header {
+	margin-top: 30rpx;
+	font-size: 32rpx;
+	font-weight: bold;
+	text-align: left;
+	line-height: 1;
+}

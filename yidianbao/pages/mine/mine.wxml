@@ -1,0 +1,51 @@
+<!-- <import src="../bulletBox/bulletBox.wxml"/> -->
+<view class="container">
+    <view class="header">
+        <image class="avatar" mode="scaleToFill" src="{{ userInfo.avatarUrl }}"></image>
+    </view>
+
+    <view class="jiaoshaya">
+        <navigator wx:if="{{ unregistered }}" url="../register/register" class="user-line" hover-class="none">
+            <text class="user-info-text" style="text-align: center;font-size: 36rpx;">注册</text>
+        </navigator>
+
+        <view wx:if="{{ userDetail.phone }}" class="user-line">
+            <text class="user-info-text" style="font-size: 36rpx; font-weight: 700;">{{ userDetail.phone }}</text>
+        </view>
+
+        <navigator wx:if="{{ userDetail.authStatus === '02' }}" url="../userInfo/userInfo?status=02" class="user-line" hover-class="none">
+            <image class="mine-icon" src="../../images/edit.png"></image>
+            <text class="user-info-text">身份认证审核中...</text>
+        </navigator>
+
+        <navigator wx:if="{{ userDetail.authStatus === '04' }}" url="../userInfo/userInfo?status=04" class="user-line" hover-class="none">
+            <image class="mine-icon" src="../../images/edit.png"></image>
+            <text class="user-info-text">认证失败</text>
+        </navigator>
+
+        <view wx:if="{{ userDetail.authStatus === '01' }}" class="user-line">
+            <image class="mine-icon" src="../../images/notCertified.png"></image>
+            <text class="user-info-text">未认证</text>
+        </view>
+
+        <navigator wx:if="{{ userDetail.authStatus === '01' }}" url="../userInfo/userInfo" class="user-line" hover-class="none">
+            <text class="user-info-text" style="color: #ff3924;">前往身份认证</text>
+        </navigator>
+
+        <navigator wx:if="{{ userDetail.authStatus === '03' }}" url="../userInfo/userInfo?status=03" class="user-line" hover-class="none">
+            <image class="mine-icon" src="../../images/authenticated.png"></image>
+            <text class="user-info-text">已认证　</text>
+        </navigator>
+
+         <view wx:if="{{ userDetail.authStatus === '03' }}" class="user-line">
+            <image class="mine-icon" src="../../images/goldMedal.png"></image>
+            <text class="user-info-text">金牌电工</text>
+        </view> 
+    </view>
+
+	<view class="disclaimer">
+		<navigator url="../disclaimer/disclaimer" hover-class="none">
+            免责申明
+        </navigator>
+	</view>
+</view>

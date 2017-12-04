@@ -1,0 +1,35 @@
+<view class="container">
+    <text class="title">身份认证</text>
+
+    <view class="register-form">
+
+        <view class="view-block block-bg">
+            <text class="label">真实姓名</text>
+            <input type="text" placeholder="请输入姓名" disabled="{{ status === '03' }}" value="{{ userDetail.realName }}" placeholder-class="placeholder-class" bindblur="nameVerification"></input>
+        </view>
+
+
+        <view class="view-block block-bg">
+            <text class="label">身份证号</text>
+            <input type="idcard" placeholder="请输入身份证号" disabled="{{ status === '03' }}" value="{{ userDetail.cardId }}" placeholder-class="placeholder-class" bindblur="idVerification"></input>
+        </view>
+
+        <view class="upload-certificate">
+            <view class="title-line">
+                <text>电子证书</text>
+                <image wx:if="{{ (imgUrls.length < 4) && (status !== '03') }}" src='../../images/camera.png' bindtap="chooseImg"></image>
+            </view>
+            <view class="photo">
+                <view wx:for="{{ ['','','',''] }}" class="image-box">
+                    <image src="{{imgUrls[ index ]}}"></image>
+                    <view wx:if="{{ status !== '03' && imgUrls[ index ] }}" data-index="{{ index }}" bindtap="delImg" class="xx">X</view>
+                </view>
+            </view>
+        </view>
+        <view wx:if="{{ status !== '03' }}">
+            <text class="star">＊</text><text class="upload-prompt">为保证通过审核，请上传清晰可见的jpg图片</text>
+        </view>
+
+        <button wx:if="{{ status !== '03' }}" type="default" class="register-btn" catchtap="submit">上传审核</button>
+    </view>
+</view>
