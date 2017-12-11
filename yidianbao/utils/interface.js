@@ -5,9 +5,7 @@ const b = "https://jy.solway.cn"
 
 exports.baseUrl = b
 
-// 不需要注册  可以使用的接口
-exports.noRegisterApi = ['register', 'GETdetail']
-
+exports.noRegisterApi = ['register', 'GETdetail', 'GETgetSimpleInfo']
 
 exports.api = {
 	//登录  code

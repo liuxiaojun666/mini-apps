@@ -107,11 +107,39 @@
 .task-description textarea, .task-description .textarea {
     padding-top: 10rpx;
     width: 100%;
-    height: 180rpx;
+    min-height: 180rpx;
     box-sizing: border-box;
-    font-size: 36rpx;
+    font-size: 30rpx;
+	color: #333;
 }
-
+.task-description textarea, .task-description .textarea .reviewContent {
+	font-size: 30rpx;
+	line-height: 1.5;
+}
+.task-description .textarea .reviewContent {
+	margin-bottom: 20rpx;
+}
+.task-description .textarea .reviewContent .header {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+.task-description .textarea .reviewContent .name {
+	color: #333;
+}
+.task-description .textarea .reviewContent .phone {
+	font-size: 24rpx;
+	color: #18bcff;
+	margin-left: 1em;
+}
+.task-description .textarea .reviewContent .time {
+	font-size: 24rpx;
+	color: #999;
+}
+.task-description .textarea .reviewContent .content {
+	font-size: 26rpx;
+	color: #333;
+}
 /*工作完成情况  照片上传  */
 
 .task-photo {
@@ -163,8 +191,8 @@
 
 .task-photo .photo .xx {
     position: absolute;
-    right: 0;
-    top: 0;
+    right: 5rpx;
+    top: 5rpx;
     width: 30rpx;
     height: 30rpx;
     font-size: 30rpx;
@@ -284,6 +312,7 @@
 
 .task-item-bottom {
     display: flex;
+	overflow: hidden;
     flex-direction: column;
 }
 
@@ -303,7 +332,9 @@
     color: #b2b2b2;
     font-size: 36rpx;
 }
-
+text.active{
+	color: #ff3413;
+}
 .money-unit {
     color: #b2b2b2;
     font-size: 18rpx;

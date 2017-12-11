@@ -14,7 +14,7 @@
                 <text class="label">验证码</text>
                 <input type="number" bindinput="inputCode" placeholder-class="placeholder-class" placeholder="请输入验证码"></input>
             </view>
-            <button wx:if="{{ (phoneNumber.length !== 11) || Registering }}" type="default">{{ Registering ? Registering + '秒后再试' : '获取验证码' }}</button>
+            <button wx:if="{{ (phoneNumber.length !== 11) || Registering }}" type="default">{{ Registering ? Registering + 's后试' : '获取验证码' }}</button>
             <button wx:else="{{ phoneNumber.length === 11 }}" class="active" type="default" catchtap="getCode">获取验证码</button>
         </view>
 

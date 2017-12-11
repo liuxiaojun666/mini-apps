@@ -9,10 +9,10 @@
         </view>
 
 
-        <view class="view-block block-bg">
+        <!-- <view class="view-block block-bg">
             <text class="label">身份证号</text>
             <input type="idcard" placeholder="请输入身份证号" disabled="{{ status === '03' }}" value="{{ userDetail.cardId }}" placeholder-class="placeholder-class" bindblur="idVerification"></input>
-        </view>
+        </view> -->
 
         <view class="upload-certificate">
             <view class="title-line">
@@ -20,8 +20,8 @@
                 <image wx:if="{{ (imgUrls.length < 4) && (status !== '03') }}" src='../../images/camera.png' bindtap="chooseImg"></image>
             </view>
             <view class="photo">
-                <view wx:for="{{ ['','','',''] }}" class="image-box">
-                    <image src="{{imgUrls[ index ]}}"></image>
+                <view wx:for="{{ ['','','',''] }}" wx:key="*this" class="image-box">
+                    <image bindtap="previewImage" data-src="{{ imgUrls[ index ] }}" src="{{imgUrls[ index ]}}"></image>
                     <view wx:if="{{ status !== '03' && imgUrls[ index ] }}" data-index="{{ index }}" bindtap="delImg" class="xx">X</view>
                 </view>
             </view>

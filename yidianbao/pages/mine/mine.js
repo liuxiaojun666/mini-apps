@@ -9,19 +9,14 @@ Page({
 		userDetail: {},
         hasUserInfo: false
     },
-    
-	/**
-	 * 页面加载
-	 */
+
     onLoad() {
+		wx.showLoading({ title: '加载中', mask: true })
 		this.getUserInfo()
-		this.getDetail()
     },
 
-	/**
-     * 生命周期函数--监听页面显示
-     */
 	onShow () {
+		this.getDetail()
 		wx.getStorage({
 			key: 'hasReg',
 			success: res => {
@@ -32,9 +27,6 @@ Page({
 		})
 	},
 
-	/**
-	 * 获取用户信息
-	 */
 	getUserInfo () {
 		if (app.globalData.userInfo) {
 			this.setData({
@@ -54,11 +46,9 @@ Page({
 		}
 	},
 
-	/**
-	 * 查询人员基本信息
-	 */
 	getDetail () {
 		request('GETdetail', {}, res => {
+			wx.hideLoading()
 			this.setData({
 				userDetail: res.data.body
 			})

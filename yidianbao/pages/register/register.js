@@ -1,29 +1,11 @@
 const { request } = require('../../utils/util.js'), app = getApp()
 Page({
-
-    /**
-     * 页面的初始数据
-     */
     data: {
         phoneNumber: '',
         code: '',
-		notLocation: false
+		notLocation: false,
+		isGetCode: false
     },
-
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad: function (options) {
-		
-    },
-
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function () {
-
-    },
-
     inputNumber(e) {
         this.setData({
             phoneNumber: e.detail.value
@@ -31,7 +13,10 @@ Page({
     },
     getCode () {
         if (!/^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/.test(this.data.phoneNumber)) return wx.showToast({ title: '请检查手机号', icon: 'loading', })
+		if (this.data.isGetCode) return
+		this.data.isGetCode = true
 		request('register', { phone: this.data.phoneNumber }, res => {
+			this.data.isGetCode = false
 			if (res.data.code === 2) {
 				wx.showToast({ title: '发送成功' })
 				this.setData({ Registering: 60 })

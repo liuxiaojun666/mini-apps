@@ -1,4 +1,4 @@
-const { api, noRegisterApi } = require('./interface.js')
+const { api, noRegisterApi, baseUrl } = require('./interface.js')
 
 const unsentXhr = []
 
@@ -10,6 +10,7 @@ Date.prototype.Format = function (fmt) {
 	for (let k in o) if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)))
 	return fmt
 }
+
 const getDateDiff = dateTimeStamp => {
 	const minute = 1000 * 60, hour = minute * 60, day = hour * 24, halfamonth = day * 15, month = day * 30, now = new Date().getTime(), diffValue = now - dateTimeStamp;
 	if (diffValue < 0) return
@@ -23,17 +24,27 @@ const getDateDiff = dateTimeStamp => {
 	else result += "刚刚"
 	return result
 }
-const progressThan = (distDate, bounsTime1, bounsTime2, bounsTime3, dateNow = Date.now()) => {
-	if (!bounsTime2) return (dateNow - distDate) / (bounsTime1 - distDate)
-	else if (!bounsTime3) {
-		if (dateNow < bounsTime1) return (dateNow - distDate) / (bounsTime1 - distDate) / 2
-		else return 1 / 2 + (dateNow - bounsTime1) / (bounsTime2 - bounsTime1) / 2
-	} else {
-		if (dateNow < bounsTime1) return (dateNow - distDate) / (bounsTime1 - distDate) / 3
-		else if (dateNow < bounsTime2) return 1 / 3 + (dateNow - bounsTime1) / (bounsTime2 - bounsTime1) / 3
-		else return 2 / 3 + (dateNow - bounsTime2) / (bounsTime3 - bounsTime2) / 3
+
+const progressThan = (...arg) => {
+	const len = arg.length
+	let progressThan = 0, activeIndex = len
+	const stamp = arg.pop()
+	arg.push(null)
+	for (let i = 0; i < len; i++) {
+		if (!arg[i + 1]) break
+		if (arg[i + 2]) continue
+		for (let index = 0; index < len; index++) {
+			if (stamp < arg[index + 1]) {
+				progressThan = ((index) / (i + 1)) + ((stamp - arg[index]) / (arg[index + 1] - arg[index]) / (i + 1))
+				if ((progressThan > 0) && (progressThan < 1)) activeIndex = index
+				break
+			}
+			progressThan = 1
+		}
 	}
+	return { progressThan, activeIndex }
 }
+
 const getShortDistance = (lon1, lat1, lon2, lat2) => {
 	const DEF_PI = 3.14159265359, DEF_2PI = 6.28318530712, DEF_PI180 = 0.01745329252, DEF_R = 6370693.5
 	let ew1 = lon1 * DEF_PI180, ns1 = lat1 * DEF_PI180, ew2 = lon2 * DEF_PI180, ns2 = lat2 * DEF_PI180, dew = ew1 - ew2, dx, dy
@@ -49,78 +60,85 @@ const openMap = (latitude, longitude) => {
 }
 
 const uploadFile = (url, name, filePath, formData = {}, success = () => { }, fail = () => { }, complete = () => { }) => {
-	const sessionId = wx.getStorageSync('sessionId'), hasReg = wx.getStorageSync('hasReg')
-
-	if (!sessionId) {
+	const sessionId = wx.getStorageSync('sessionId'), hasReg = wx.getStorageSync('hasReg'), goLogin = () => {
 		unsentXhr.push(() => uploadFile(url, name, filePath, formData, success, fail, complete))
-		return login()
+		login()
 	}
+
+	if (!sessionId) return goLogin()
 	if (hasReg === 0 && !noRegisterApi.includes(url)) return success({ msg: '未注册' })
-	else if ((hasReg !== 1) && (hasReg !== 0)) {
-		unsentXhr.push(() => uploadFile(url, name, filePath, formData, success, fail, complete))
-		return login()
-	}
+	else if ((hasReg !== 1) && (hasReg !== 0)) return goLogin()
 
-	wx.uploadFile({
+	return wx.uploadFile({
 		url: api[url], filePath, name,
-		header: {
-			'wxa-sessionid': sessionId,
-			"content-type": "multipart/form-data"
-		},
+		header: { 'wxa-sessionid': sessionId, "content-type": "multipart/form-data" },
 		formData,
 		success(...arg) {
 			const { data: { code, msg } } = arg[0]
 			if (code === 1) {
-				if (msg.includes('wxa_session')) {
-					unsentXhr.push(() => uploadFile(url, name, filePath, formData, success, fail, complete))
-					return login()
-				}
+				if (msg.includes('wxa_session')) return goLogin()
 				else wx.showToast({ title: '服务器错误', icon: 'loading' })
 				return { msg }
 			}
 			success(...arg)
-		}, fail, complete,
+		}, fail(...arg) {
+			wx.showToast({ title: '服务器错误', icon: 'loading' })
+			fail(...arg)
+		}, complete,
 	})
 }
 
-const request = (url, data = {}, success = () => { }, fail = () => { }, complete = () => { }) => {
-	const sessionId = wx.getStorageSync('sessionId'), hasReg = wx.getStorageSync('hasReg')
+const uploadFun = (v, i, certifys, classify, self, allUploadComplete) => {
+	if (v.includes('document')) {
+		certifys.push(v.substr(baseUrl.length + 1))
+		return uploadComplete()
+	}
 
-	if (!sessionId) {
+	let uploadTask = uploadFile('uploadFile', 'file', v, { classify }, res => {
+		certifys = [...certifys, ...JSON.parse(res.data)]
+	}, () => { certifys.push('') }, uploadComplete)
+
+	uploadTask.onProgressUpdate(res => {
+		wx.showLoading({ title: (i + 1) + '/' + self.data.imgUrls.length + '\n' + res.progress + '%', mask: true })
+	})
+
+	function uploadComplete() {
+		if (certifys.length === self.data.imgUrls.length) return allUploadComplete(certifys)
+		uploadFun(self.data.imgUrls[i + 1], i + 1, certifys, classify, self, allUploadComplete)
+	}
+}
+
+const request = (url, data = {}, success = () => { }, fail = () => { }, complete = () => { }) => {
+	const sessionId = wx.getStorageSync('sessionId'), hasReg = wx.getStorageSync('hasReg'), goLogin = () => {
 		unsentXhr.push(() => request(url, data, success, fail, complete))
 		return login()
 	}
+
+	if (!sessionId) return goLogin()
 	if (hasReg === 0 && !noRegisterApi.includes(url)) return success({ msg: '未注册' })
-	else if ((hasReg !== 1) && (hasReg !== 0)) {
-		unsentXhr.push(() => request(url, data, success, fail, complete))
-		return login()
-	}
+	else if ((hasReg !== 1) && (hasReg !== 0)) return goLogin()
 
 	const method = url.startsWith('GET') ? 'GET' : 'POST'
-	let header = {
-		'wxa-sessionid': sessionId,
-		"X-Requested-With": "XMLHttpRequest"
-	}
+	let header = { 'wxa-sessionid': sessionId, "X-Requested-With": "XMLHttpRequest" }
 	if (method === 'POST') header = { ...header, "Content-Type": "application/x-www-form-urlencoded" }
 
-	wx.request({
+	return wx.request({
 		url: api[url], data, header, method, dataType: 'json',
 		success(...arg) {
 			const { data: { code, msg } } = arg[0]
 			if (code === 500) return wx.showToast({ title: '服务器错误', icon: 'loading' })
 			if (code === 1) {
-				if (msg.includes('wxa_session')) {
-					unsentXhr.push(() => request(url, data, success, fail, complete))
-					return login()
-				}
+				if (msg.includes('wxa_session')) return goLogin()
 				else wx.showToast({ title: '服务器错误', icon: 'loading' })
 				return { msg }
 			}
 			success(...arg)
-		}, fail, complete,
+		}, fail(...arg) {
+			wx.showToast({ title: '服务器错误', icon: 'loading' })
+			fail(...arg)
+		}, complete,
 	})
 }
-
 
 function login() {
 	if (logging) return
@@ -143,9 +161,7 @@ function login() {
 					unsentXhr.forEach(xhr => xhr())
 					unsentXhr.length = 0
 				},
-				complete() {
-					logging = false
-				}
+				complete() { logging = false }
 			})
 		}
 	})
@@ -156,6 +172,8 @@ module.exports = {
 	openMap,
 	progressThan,
 	uploadFile,
+	uploadFun,
 	request,
+	login,
 	getShortDistance
 }

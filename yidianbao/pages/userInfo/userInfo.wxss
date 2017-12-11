@@ -112,6 +112,7 @@ page {
 
 .register-btn {
     margin-top: 115rpx;
+	margin-bottom: 20rpx;
     background: linear-gradient(to right, #ff9600, #f6b559);
     color: #fff!important;
     width: 100%;

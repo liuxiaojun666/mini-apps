@@ -1,4 +1,3 @@
-<!--index.wxml-->
 <view class="container">
     <view class="current-user-statistics">
         <view class="statistics-item">
@@ -25,7 +24,7 @@
     </view>
 
     <view class="task-list">
-        <navigator url="../details/details?id={{ item.id }}" wx:for="{{ list }}" wx:key="*this" class="task-item" style="flex-basis: {{ item.publishStatus === '07' ? 364 : 304 }}rpx;">
+        <navigator url="../details/details?id={{ item.id }}" wx:for="{{ list }}" wx:key="id" class="task-item" style="flex-basis: {{ item.publishStatus === '07' ? 364 : 304 }}rpx;">
             <view class="task-item-top">
                 <view class="task-info">
                     <text class="task-title">{{ item.taskTitle }}</text>
@@ -43,26 +42,28 @@
                      <text class="status-text">已完成</text>
                  </view> 
 				 <view wx:else class='task-status' style="background: linear-gradient(to bottom right, #18bcff , #74d6fe);"> 
-                     <text class="status-text">处理中</text>
+                     <text wx:if="{{ item.publishStatus === '02' || item.publishStatus === '03' || item.publishStatus === '06' }}" class="status-text">处理中</text>
+                     <text wx:elif="{{ item.publishStatus === '04' }}" class="status-text">审核中</text>
+                     <text wx:elif="{{ item.publishStatus === '05' }}" class="status-text">审核通过</text>
                  </view> 
             </view>
             <view class="task-item-bottom">
                 <block>
                     <view class="money-views">
-                        <view class="money-view" wx:for="{{ item.bounsTimeArr }}"  wx:for-item="xItem" style="width:{{ 100/item.bounsTimeArr.length }}%;" wx:key="*this">
-                            <text class="money">{{ xItem.bouns }}</text>
-                            <text class="money-unit">元</text>
+                        <view class="money-view" wx:for="{{ item.bounsTimeArr }}"  wx:for-item="xItem" style="width:{{ 100/item.bounsTimeArr.length }}%;" wx:key="time">
+                            <text class="money {{ item.progressThan.activeIndex === index ? 'active': '' }}">{{ xItem.bouns }}</text>
+                            <text class="money-unit {{ item.progressThan.activeIndex === index ? 'active': '' }}">元</text>
                         </view>
                     </view>
                     <view class="gradient">
-                        <view class="gradient-color" style="width: {{ item.progressThan * 100 }}%;"></view>
+                        <view class="gradient-color" style="width: {{ item.progressThan.progressThan * 100 }}%;"></view>
                         <view class="gradient-gray"></view>
-                        <view class="dot" style="left: {{ item.progressThan * 100 }}%"></view>
+                        <view class="dot" style="left: {{ item.progressThan.progressThan * 100 }}%"></view>
                         <view class="vertical-line" style="left: {{ 100 / item.bounsTimeArr.length }}%"></view>
                         <view wx:if="{{ item.bounsTimeArr.length === 3 }}" class="vertical-line" style="left: {{ 100 / 3 * 2 }}%"></view>
                     </view>
                     <view class="closing-dates">
-                        <text class='end-time' wx:for="{{ item.bounsTimeArr }}"  wx:for-item="xItem" style="width:{{ 100/item.bounsTimeArr.length }}%;" wx:key="*this">{{ xItem.time }}</text>
+                        <text class='end-time' wx:for="{{ item.bounsTimeArr }}"  wx:for-item="xItem" style="width:{{ 100/item.bounsTimeArr.length }}%;" wx:key="time">{{ xItem.time }}</text>
                     </view>
                 </block>
                 <block wx:if="{{ item.publishStatus === '07' }}">
@@ -81,8 +82,13 @@
 		<text>立即注册，抢单赚红包！</text>
 	</navigator>
 
-	<view wx:if="{{ isRegister && list.length === 0 }}" class="to-register" hover-class="none">
+	<view wx:if="{{ isRegister && list.length === 0 }}" style="margin-bottom: 50rpx;" class="to-register">
 		<image src="../../images/shit2.png"></image>
 		<text>你还没有接到过任务</text>
 	</view>
+
+	<navigator wx:if="{{ isRegister && authStatus === '01' }}" url="../userInfo/userInfo?status=01" class="to-register" hover-class="none">
+		<text class='unverified'>您还未认证，前往身份认证</text>
+	</navigator>
+
 </view>

@@ -32,7 +32,7 @@ Page({
 		this.data.list = []
 		this.getSelectPage()
 		this.getSimpleInfo()
-        wx.stopPullDownRefresh()
+		wx.stopPullDownRefresh()
     },
 
 	onReachBottom () {
@@ -62,7 +62,7 @@ Page({
 	},
 
 	getSelectPage(pageIndex = 0) {
-		wx.showLoading({ title: '加载中', mask: true })
+		wx.showLoading({ title: '加载中' })
 		request('GETselectPage', { pageIndex }, res => {
 			wx.hideLoading()
 			if (res.msg === '未注册') return this.setData({ isRegister: false })
@@ -72,9 +72,8 @@ Page({
 					const { publishStatus, id, bounsFinal, taskNo, distDate, provinceName, cityName, countyName, address, taskTitle, taskContent, longitude, latitude, bounsTime, bounsTime1, bounsTime2, bounsTime3, handleTime, bouns1, bouns2, bouns3 } = v, bounsTimeArr = [bounsTime1, bounsTime2, bounsTime3]
 					return {
 						publishStatus, id, bounsFinal, taskNo, provinceName, cityName, countyName, address, taskTitle, taskContent, longitude, latitude,
-						// distDate: new Date(distDate).Format('yyyy-MM-dd hh:mm'),
 						distDate: getDateDiff(distDate),
-						progressThan: publishStatus === '07' ? progressThan(distDate, bounsTime1, bounsTime2, bounsTime3, handleTime) : progressThan(distDate, bounsTime1, bounsTime2, bounsTime3),
+						progressThan: progressThan(distDate, bounsTime1, bounsTime2, bounsTime3, ['04', '05', '07'].includes(publishStatus) ? handleTime : +new Date),
 						distance: (getShortDistance(this.data.longitude, this.data.latitude, longitude, latitude) / 1000).toFixed(2),
 						bounsTimeArr: bounsTimeArr.reduce((a, b, i) => b ? a.concat({ time: new Date(b).Format('yyyy-MM-dd hh:mm'), bouns: v['bouns' + (i + 1)] }) : a, [])
 					}
@@ -86,8 +85,8 @@ Page({
 	getSimpleInfo () {
 		request('GETgetSimpleInfo', {}, res => {
 			if (res.msg === '未注册') return this.setData({ isRegister: false })
-			const { data: { body: { tasks: cds, bouns: hb, points: jf } } } = res
-			this.setData({ cds, hb, jf })
+			const { data: { body: { tasks: cds, bouns: hb, points: jf, authStatus } } } = res
+			this.setData({ cds, hb, jf, authStatus })
 		})
 	},
 

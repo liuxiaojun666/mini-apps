@@ -149,6 +149,7 @@
 
 .task-item-bottom {
     flex-grow: 1;
+	overflow: hidden;
     display: flex;
     flex-direction: column;
 }
@@ -169,10 +170,12 @@
     color: #b2b2b2;
     font-size: 36rpx;
 }
-
+text.active{
+	color: #ff3413;
+}
 .money-unit {
     color: #b2b2b2;
-    font-size: 18rpx;
+    font-size: 20rpx;
 }
 
 .gradient {
@@ -254,4 +257,9 @@
 	font-size: 30rpx;
 	text-align: center;
 	color: #978e80;
+}
+.to-register text.unverified {
+	font-size: 24rpx;
+	color: #ff3413;
+	line-height: 1.5;
 }
