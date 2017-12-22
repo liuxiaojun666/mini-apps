@@ -7,7 +7,7 @@ Page({
         cds: 0,
         hb: 0,
         jf: 0,
-		list: []
+		list: [],
     },
 
     grabSingle(e) {
@@ -15,8 +15,6 @@ Page({
 		request('doGrab', { id: e.currentTarget.dataset.id }, res => {
 			if (res.data.code !== 0) return
 			wx.showToast({ title: '抢单成功' })
-			this.data.pageIndex = 0
-			this.data.list = []
 			this.getSelectPage()
 			this.getSimpleInfo()
 		})
@@ -28,16 +26,13 @@ Page({
 	},
 
     onPullDownRefresh() {
-		this.data.pageIndex = 0
-		this.data.list = []
 		this.getSelectPage()
 		this.getSimpleInfo()
-		wx.stopPullDownRefresh()
     },
 
 	onReachBottom () {
 		if (this.data.totalPage <= this.data.pageIndex + 1) return
-		this.getSelectPage(++this.data.pageIndex)
+		this.getSelectPage(this.data.pageIndex + 1)
 	},
 
 
@@ -62,11 +57,18 @@ Page({
 	},
 
 	getSelectPage(pageIndex = 0) {
+		if (this.data.isLoading) return
+		this.data.isLoading = true
+		if (pageIndex === 0) this.data.list = []
 		wx.showLoading({ title: '加载中' })
 		request('GETselectPage', { pageIndex }, res => {
+			wx.stopPullDownRefresh()
+			0 === pageIndex && wx.pageScrollTo({ scrollTop: 0 })
+			this.data.isLoading = false
 			wx.hideLoading()
 			if (res.msg === '未注册') return this.setData({ isRegister: false })
 			this.setData({
+				pageIndex: res.data.body.pageIndex,
 				totalPage: res.data.body.totalPage,
 				list: [...this.data.list, ...res.data.body.data.map(v => {
 					const { publishStatus, id, bounsFinal, taskNo, distDate, provinceName, cityName, countyName, address, taskTitle, taskContent, longitude, latitude, bounsTime, bounsTime1, bounsTime2, bounsTime3, handleTime, bouns1, bouns2, bouns3 } = v, bounsTimeArr = [bounsTime1, bounsTime2, bounsTime3]
@@ -79,7 +81,7 @@ Page({
 					}
 				})]
 			})
-		})
+		}, () => this.data.isLoading = false)
 	},
 
 	getSimpleInfo () {
@@ -91,8 +93,6 @@ Page({
 	},
 
 	onShow() {
-		this.data.pageIndex = 0
-		this.data.list = []
 		this.getSelectPage()
 		this.getSimpleInfo()
     },

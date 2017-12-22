@@ -29,13 +29,24 @@
                 <text class="task-title">{{ res.taskTitle }}</text>
                 <text class="task-location">{{ res.provinceName + res.cityName + res.countyName + res.address }}</text>
                 <text class="task-location">{{ res.taskContent }}</text>
+				
+				<view class="task-photo">
+					<view wx:if="{{ taskImgs.length }}" style="border: none;" class="photos">
+						<view class="photo" wx:if="{{ index < 9 }}" wx:for="{{ taskImgs }}" wx:key="*this">
+							<image bindtap="previewImage" data-imgArrName="taskImgs" data-src="{{ item }}" mode="scaleToFill" src="{{ item }}"></image>
+						</view>
+					</view>
+				</view>
+
                 <view class="task-distance" catchtap="openMap">
                     <image class='position-icon' src="../../images/positioning.png"></image>
                     <text class="task-distance-num">{{ res.distance + 'km' }}</text>
+                	<text class="task-time">{{ res.distDate }}</text>					
                 </view>
-                <text class="task-time">{{ res.distDate }}</text>
             </view>
         </view>
+
+
         <view class="task-item-bottom">
             <block>
                 <view class="money-views">
@@ -63,6 +74,8 @@
                 </view>
             </block>
         </view>
+		
+		
     </view>
 
     <view wx:if="{{ showTaskSchedule && res.publishStatus !== '01' }}" class="task-description">
@@ -72,14 +85,14 @@
     </view>
 
 
-    <view wx:if="{{ showTaskSchedule && res.publishStatus !== '01' }}" class="task-photo">
+    <view wx:if="{{ showTaskSchedule && res.publishStatus !== '01' }}" class="task-photo task-submit">
         <view class="heading">
             <text>现场图片</text>
             <image wx:if="{{ (imgUrls.length < 9) && (res.publishStatus === '02' || res.publishStatus === '03' || res.publishStatus === '06') }}" bindtap="chooseImg" src="../../images/camera.png"></image>
         </view>
         <view wx:if="{{ imgUrls.length }}" class="photos">
             <view class="photo" wx:if="{{ index < 9 }}" wx:for="{{ imgUrls }}" wx:key="*this">
-                <image bindtap="previewImage" data-src="{{ item }}" mode="scaleToFill" src="{{ item }}"></image>
+                <image bindtap="previewImage" data-imgArrName="imgUrls" data-src="{{ item }}" mode="scaleToFill" src="{{ item }}"></image>
                 <view wx:if="{{ res.publishStatus === '02' || res.publishStatus === '03' || res.publishStatus === '06' }}" bindtap="delImg" data-index="{{ index }}" class="xx">X</view>
             </view>
         </view>

@@ -53,9 +53,10 @@ Page({
         this.setData({ imgUrls })
     },
 	previewImage(e) {
+		const { src, imgarrname: imgArrName } = e.currentTarget.dataset
 		wx.previewImage({
-			current: e.currentTarget.dataset.src,
-			urls: this.data.imgUrls
+			current: src,
+			urls: this.data[imgArrName]
 		})
 	},
     chooseImg () {
@@ -87,7 +88,12 @@ Page({
 				...v,
 				time: new Date(v.time).Format('yyyy-MM-dd hh:mm:ss')
 			}))
-			this.setData({ res, content: res.handleContent, imgUrls: res.handleImg ? res.handleImg.split(',').map((v => v && baseUrl + '/' + v)) : [] })
+			this.setData({ 
+				res, 
+				content: res.handleContent, 
+				imgUrls: res.handleImg ? res.handleImg.split(',').map((v => v && baseUrl + '/' + v)) : [],
+				taskImgs: res.taskImgs ? res.taskImgs.split(',').map((v => v && baseUrl + '/' + v)) : []
+			})
 			if (['02', '03', '04', '05', '06', '07'].includes(res.publishStatus)) this.setData({ showTaskSchedule: true })
 		})
 	},

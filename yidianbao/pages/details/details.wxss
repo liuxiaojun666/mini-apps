@@ -144,10 +144,14 @@
 
 .task-photo {
     box-sizing: border-box;
-    padding: 0 30rpx;
     width: 100%;
     background-color: #fff;
-    margin-top: 20rpx;
+    
+}
+
+.task-photo.task-submit {
+	margin-top: 20rpx;
+    padding: 0 30rpx;
 }
 
 .task-photo .heading {
@@ -173,7 +177,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-    padding: 20rpx 0;
+    /* padding: 20rpx 0; */
 }
 
 .task-photo .photo {
@@ -279,7 +283,7 @@
 }
 
 .task-distance {
-    width: 200rpx;
+    /* width: 200rpx; */
     font-size: 24rpx;
     color: #42bef1;
     margin-top: 15rpx;
@@ -289,6 +293,9 @@
     font-size: 28rpx;
     color: #797979;
     margin-top: 15rpx;
+	margin-left: 15rpx;
+	border-left: 1rpx solid #ddd;
+	padding-left: 15rpx;
 }
 
 .task-status {
