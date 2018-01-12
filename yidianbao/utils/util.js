@@ -130,7 +130,6 @@ const request = (url, data = {}, success = () => { }, fail = () => { }, complete
 			if (code === 1) {
 				if (msg.includes('wxa_session')) return goLogin()
 				else wx.showToast({ title: '服务器错误', icon: 'loading' })
-				return { msg }
 			}
 			success(...arg)
 		}, fail(...arg) {

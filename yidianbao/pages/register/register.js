@@ -26,6 +26,8 @@ Page({
 					timer()
 				}, 1000)
 				timer()
+			} else if (res.data.code === 1) {
+				wx.showToast({ title: res.data.msg, icon: 'loading' })
 			}
 		})
     },
