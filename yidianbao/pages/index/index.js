@@ -71,9 +71,9 @@ Page({
 				pageIndex: res.data.body.pageIndex,
 				totalPage: res.data.body.totalPage,
 				list: [...this.data.list, ...res.data.body.data.map(v => {
-					const { publishStatus, id, bounsFinal, taskNo, distDate, provinceName, cityName, countyName, address, taskTitle, taskContent, longitude, latitude, bounsTime, bounsTime1, bounsTime2, bounsTime3, handleTime, bouns1, bouns2, bouns3 } = v, bounsTimeArr = [bounsTime1, bounsTime2, bounsTime3]
+					const { publishStatus, id, stationName, bounsFinal, taskNo, distDate, provinceName, cityName, countyName, address, taskTitle, taskContent, longitude, latitude, bounsTime, bounsTime1, bounsTime2, bounsTime3, handleTime, bouns1, bouns2, bouns3 } = v, bounsTimeArr = [bounsTime1, bounsTime2, bounsTime3]
 					return {
-						publishStatus, id, bounsFinal, taskNo, provinceName, cityName, countyName, address, taskTitle, taskContent, longitude, latitude,
+						publishStatus, id, stationName, bounsFinal, taskNo, provinceName, cityName, countyName, address, taskTitle, taskContent, longitude, latitude,
 						distDate: getDateDiff(distDate),
 						progressThan: progressThan(distDate, bounsTime1, bounsTime2, bounsTime3, ['04', '05', '07'].includes(publishStatus) ? handleTime : +new Date),
 						distance: (getShortDistance(this.data.longitude, this.data.latitude, longitude, latitude) / 1000).toFixed(2),

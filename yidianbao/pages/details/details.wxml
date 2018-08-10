@@ -26,8 +26,8 @@
         <view class="task-item-top">
             <view class="task-info">
                 <text class="heading">具体工作内容</text>
-                <text class="task-title">{{ res.taskTitle }}</text>
-                <text class="task-location">{{ res.provinceName + res.cityName + res.countyName + res.address }}</text>
+                <text class="task-title">{{ res.stationName }}</text>
+                <!-- <text class="task-location">{{ res.provinceName + res.cityName + res.countyName + res.address }}</text> -->
                 <text class="task-location">{{ res.taskContent }}</text>
 				
 				<view class="task-photo">
@@ -39,9 +39,10 @@
 				</view>
 
                 <view class="task-distance" catchtap="openMap">
-                    <image class='position-icon' src="../../images/positioning.png"></image>
-                    <text class="task-distance-num">{{ res.distance + 'km' }}</text>
-                	<text class="task-time">{{ res.distDate }}</text>					
+                    <!-- <image class='position-icon' src="../../images/positioning.png"></image> -->
+                    <!-- <text class="task-distance-num">{{ res.distance + 'km' }}</text> -->
+                	<!-- <text class="task-time">{{ res.distDate }}</text>					 -->
+					<text class="task-distance-num">{{ res.distDate }}</text>
                 </view>
             </view>
         </view>

@@ -27,12 +27,14 @@
         <navigator url="../details/details?id={{ item.id }}" wx:for="{{ list }}" wx:key="id" class="task-item" style="flex-basis: {{ item.publishStatus === '07' ? 364 : 304 }}rpx;">
             <view class="task-item-top">
                 <view class="task-info">
-                    <text class="task-title">{{ item.taskTitle }}</text>
-                    <text class="task-location">{{ item.provinceName + item.cityName + item.countyName + item.address }}</text>
+                    <text class="task-title">{{ item.stationName }}</text>
+                    <!-- <text class="task-location">{{ item.provinceName + item.cityName + item.countyName + item.address }}</text> -->
+					<text class="task-location">{{ item.taskContent }}</text>
                     <view class="task-distance">
-                        <image class='position-icon' src="../../images/positioning.png" catchtap="openMap"></image>
-                        <text wx:if="{{ item.distance !== 'NaN' }}" class="task-distance-num" data-latitude="{{ item.latitude }}" data-longitude="{{ item.longitude }}" catchtap="openMap">{{ item.distance + 'km' }}</text>
-						<text class="task-time">{{ item.distDate }}</text>
+                        <!-- <image class='position-icon' src="../../images/positioning.png" catchtap="openMap"></image> -->
+                        <!-- <text wx:if="{{ item.distance !== 'NaN' }}" class="task-distance-num" data-latitude="{{ item.latitude }}" data-longitude="{{ item.longitude }}" catchtap="openMap">{{ item.distance + 'km' }}</text>  -->
+						<!-- <text class="task-time">{{ item.distDate }}</text> -->
+						<text class="task-distance-num">{{ item.distDate }}</text>
                     </view>
                 </view>
                  <view wx:if="{{ item.publishStatus === '01' }}" data-id="{{ item.id }}" hover-stop-propagation="true" catchtap="grabSingle" class='task-status' style="background: linear-gradient(to bottom right, #ff9907 , #ffc572);"> 
