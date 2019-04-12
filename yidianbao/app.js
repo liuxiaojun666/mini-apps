@@ -7,7 +7,6 @@ App({
 				if (!res.data) login()
 			}
 		})
-
         wx.getSetting({
             success: res => {
                 wx.getUserInfo({
