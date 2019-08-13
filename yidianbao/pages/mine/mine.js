@@ -12,7 +12,7 @@ Page({
 
     onLoad() {
 		wx.showLoading({ title: '加载中', mask: true })
-		this.getUserInfo()
+		// this.getUserInfo()
     },
 
 	onShow () {
@@ -34,15 +34,15 @@ Page({
 				hasUserInfo: true
 			})
 		} else {
-			wx.getUserInfo({
-				success: res => {
-					app.globalData.userInfo = res.userInfo
-					this.setData({
-						userInfo: res.userInfo,
-						hasUserInfo: true
-					})
-				},
-			})
+			// wx.getUserInfo({
+			// 	success: res => {
+			// 		app.globalData.userInfo = res.userInfo
+			// 		this.setData({
+			// 			userInfo: res.userInfo,
+			// 			hasUserInfo: true
+			// 		})
+			// 	},
+			// })
 		}
 	},
 

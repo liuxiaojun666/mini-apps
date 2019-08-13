@@ -7,7 +7,7 @@ Page({
     },
     submit () {
         if (false === this.nameVerification()) return
-        // if (false === this.idVerification()) return
+        if (false === this.idVerification()) return
 		if (this.data.imgUrls.length < 1) return wx.showToast({ title: '请选择图片', icon: 'loading', mask: true, })
 		wx.showLoading({ title: '正在上传...', mask: true, })
 		uploadFun(this.data.imgUrls[0], 0, [], 'card', this, certifys => {
@@ -15,7 +15,7 @@ Page({
 			certifys = certifys.map(v => v ? v : '')
 			request('doAuth', {
 				realName: this.data.userName,
-				// cardId: this.data.idNumber.toLowerCase(),
+				cardId: (this.data.idNumber || '').toLowerCase(),
 				certifys: certifys.join(',')
 			}, res => {
 				wx.showToast({ title: res.data.msg, mask: true, success() { setTimeout(() => { wx.reLaunch({ url: '../mine/mine' }) }, 1500) } })
@@ -29,13 +29,18 @@ Page({
             return false
         }
     },
-    // idVerification(e = { detail: { value: this.data.idNumber } }) {
-    //     this.setData({ idNumber: e.detail.value })
-    //     if (!/^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/.test(e.detail.value)) {
-    //         wx.showToast({ title: '身份证号错误', icon: 'loading', })
-    //         return false
-    //     }
-    // },
+    idVerification(e = { detail: { value: this.data.idNumber } }) {
+        this.setData({ idNumber: e.detail.value })
+		if (e.detail.value === '') {
+			wx.showToast({ title: '身份证号未填写', icon: 'loading', })
+			return
+		}
+		if (!e.detail.detail.value) return
+        if (!/^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/.test(e.detail.value)) {
+            wx.showToast({ title: '身份证号错误', icon: 'loading', })
+            return false
+        }
+    },
     delImg(e) {
         const { imgUrls } = this.data
         imgUrls.splice(e.currentTarget.dataset.index, 1)

@@ -100,7 +100,7 @@ Page({
 	onLoad () {
 		this.getLocation()
 
-		wx.setClipboardData({ data: 'cwahxM23Oo' })
+		// wx.setClipboardData({ data: '' })
 	}
 
 })

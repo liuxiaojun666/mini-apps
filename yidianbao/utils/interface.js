@@ -1,5 +1,6 @@
-// const b = "https://jy.solway.cn"
-const b = 'https://necloud.solway.cn'
+const b = "https://jy.solway.cn"
+// const b = 'https://necloud.solway.cn' // 生产
+// const b = 'http://netest.solway.cn'
 // const b = "http://192.168.10.219"
 // const b = "http://192.168.10.60:88"
 // const b = "http://172.10.1.11:9999"

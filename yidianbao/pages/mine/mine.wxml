@@ -1,7 +1,8 @@
 <!-- <import src="../bulletBox/bulletBox.wxml"/> -->
 <view class="container">
     <view class="header">
-        <image class="avatar" mode="scaleToFill" src="{{ userInfo.avatarUrl }}"></image>
+		<open-data class="avatar" type="userAvatarUrl"></open-data>
+        <!-- <image class="avatar" mode="scaleToFill" src="{{ userInfo.avatarUrl }}"></image> -->
     </view>
 
     <view class="jiaoshaya">

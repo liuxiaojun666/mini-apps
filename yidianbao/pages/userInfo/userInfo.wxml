@@ -9,10 +9,10 @@
         </view>
 
 
-        <!-- <view class="view-block block-bg">
+         <view class="view-block block-bg">
             <text class="label">身份证号</text>
-            <input type="idcard" placeholder="请输入身份证号" disabled="{{ status === '03' }}" value="{{ userDetail.cardId }}" placeholder-class="placeholder-class" bindblur="idVerification"></input>
-        </view> -->
+            <input type="idcard" placeholder="请输入身份证号(选填)" disabled="{{ status === '03' }}" value="{{ userDetail.cardId }}" placeholder-class="placeholder-class" bindblur="idVerification"></input>
+        </view> 
 
         <view class="upload-certificate">
             <view class="title-line">

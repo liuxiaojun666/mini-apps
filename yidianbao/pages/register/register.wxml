@@ -18,12 +18,12 @@
             <button wx:else="{{ phoneNumber.length === 11 }}" class="active" type="default" catchtap="getCode">获取验证码</button>
         </view>
 
-        <button wx:if="{{ (phoneNumber.length != 11) || (code.length != 6) || notLocation }}" type="default" class="register-btn">注册</button>
+        <button wx:if="{{ (phoneNumber.length != 11) || (code.length != 6) }}" type="default" class="register-btn">注册</button>
         <button wx:else type="default" catchtap="register" class="register-btn active">注册</button>
 
-		<view class="get-location" wx:if="{{ notLocation }}">
+		<!-- <view class="get-location" wx:if="{{ notLocation }}">
 			<text>注册前请允许“易电宝”获取您的地理位置</text>
 			<text catchtap="openSetting">前往设置</text>
-		</view>
+		</view> -->
     </view>
 </view>

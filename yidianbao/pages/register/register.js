@@ -12,7 +12,7 @@ Page({
         })
     },
     getCode () {
-        if (!/^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/.test(this.data.phoneNumber)) return wx.showToast({ title: '请检查手机号', icon: 'loading', })
+        if (!/^(0|86|17951)?1[0-9]{10}$/.test(this.data.phoneNumber)) return wx.showToast({ title: '请检查手机号', icon: 'loading', })
 		if (this.data.isGetCode) return
 		this.data.isGetCode = true
 		request('register', { phone: this.data.phoneNumber }, res => {
@@ -40,8 +40,8 @@ Page({
 		request('register', {
 			phone: this.data.phoneNumber,
 			randomCode: this.data.code,
-			latitude: this.data.latitude,
-			longitude: this.data.longitude
+			// latitude: this.data.latitude,
+			// longitude: this.data.longitude
 		}, res => {
 			if (res.data.code !== 0) return
 			wx.setStorageSync('hasReg', 1)
@@ -56,44 +56,44 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-		this.getLocation()
+		// this.getLocation()
     },
 
 	/**
 	 * 获取用户地理位置
 	 */
-	getLocation () {
-		wx.getLocation({
-			type: 'gcj02',
-			success: res => {
-				this.setData({
-					latitude: res.latitude,
-					longitude: res.longitude
-				})
-			},
-			fail: res => {
-				this.setData({
-					notLocation: true
-				})
-			},
-		})
-	},
+	// getLocation () {
+	// 	wx.getLocation({
+	// 		type: 'gcj02',
+	// 		success: res => {
+	// 			this.setData({
+	// 				latitude: res.latitude,
+	// 				longitude: res.longitude
+	// 			})
+	// 		},
+	// 		fail: res => {
+	// 			this.setData({
+	// 				notLocation: true
+	// 			})
+	// 		},
+	// 	})
+	// },
 
 	/**
 	 * 打开用户授权设置
 	 */
-	openSetting () {
-		wx.openSetting({
-			success: res => {
-				if (res.authSetting["scope.userLocation"]) {
-					this.setData({
-						notLocation: false
-					})
-					this.getLocation()
-				}
-			}
-		})
-	},
+	// openSetting () {
+	// 	wx.openSetting({
+	// 		success: res => {
+	// 			if (res.authSetting["scope.userLocation"]) {
+	// 				this.setData({
+	// 					notLocation: false
+	// 				})
+	// 				// this.getLocation()
+	// 			}
+	// 		}
+	// 	})
+	// },
 
     /**
      * 生命周期函数--监听页面隐藏
